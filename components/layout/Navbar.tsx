@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Orbit } from "lucide-react";
@@ -12,29 +13,40 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <motion.header
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/75 backdrop-blur-md"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "border-b border-border bg-background/90 shadow-[0_1px_0_rgba(43,33,24,0.04)] backdrop-blur-lg"
+          : "bg-transparent"
+      }`}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg brand-mark">
-            <Orbit className="h-4 w-4 text-white" strokeWidth={2.5} />
+      <nav className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-6 lg:px-10">
+        <a href="#" className="group flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-burgundy transition-colors group-hover:bg-burgundy-deep">
+            <Orbit className="h-4 w-4 text-white" strokeWidth={2} />
           </div>
-          <span className="text-sm font-semibold tracking-tight text-burgundy-deep">
-            OrbitIQ
-          </span>
+          <span className="font-display text-lg text-burgundy-deep">OrbitIQ</span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-10 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-body transition-colors duration-200 hover:text-burgundy-deep"
+              className="text-[13px] text-text transition-colors duration-200 hover:text-burgundy"
             >
               {link.label}
             </a>

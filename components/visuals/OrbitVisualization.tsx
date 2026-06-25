@@ -2,198 +2,136 @@
 
 import { motion } from "framer-motion";
 
-const nodes = [
-  { id: 0, angle: 0, radius: 120, size: 8, color: "#6D071A" },
-  { id: 1, angle: 72, radius: 120, size: 6, color: "#4A000E" },
-  { id: 2, angle: 144, radius: 120, size: 7, color: "#8B1A2E" },
-  { id: 3, angle: 216, radius: 120, size: 6, color: "#D4AF37" },
-  { id: 4, angle: 288, radius: 120, size: 9, color: "#6D071A" },
+const communityNodes = [
+  { label: "Messages", angle: 0 },
+  { label: "Reactions", angle: 60 },
+  { label: "Voice", angle: 120 },
+  { label: "Events", angle: 180 },
+  { label: "Members", angle: 240 },
+  { label: "Channels", angle: 300 },
 ];
 
-const innerNodes = [
-  { id: 5, angle: 36, radius: 70, size: 5, color: "#FFFBF0" },
-  { id: 6, angle: 108, radius: 70, size: 4, color: "#D4AF37" },
-  { id: 7, angle: 180, radius: 70, size: 5, color: "#4A000E" },
-  { id: 8, angle: 252, radius: 70, size: 4, color: "#8B7D6B" },
-  { id: 9, angle: 324, radius: 70, size: 5, color: "#6D071A" },
-];
-
-function polarToCartesian(angle: number, radius: number) {
+function polarToCartesian(angle: number, radius: number, cx = 200, cy = 200) {
   const rad = (angle - 90) * (Math.PI / 180);
-  return {
-    x: 200 + radius * Math.cos(rad),
-    y: 200 + radius * Math.sin(rad),
-  };
+  return { x: cx + radius * Math.cos(rad), y: cy + radius * Math.sin(rad) };
 }
 
 export function OrbitVisualization() {
-  const connections = nodes.flatMap((node, i) => {
-    const next = nodes[(i + 1) % nodes.length];
-    const a = polarToCartesian(node.angle, node.radius);
-    const b = polarToCartesian(next.angle, next.radius);
+  const outerRadius = 130;
+  const connections = communityNodes.map((node, i) => {
+    const next = communityNodes[(i + 1) % communityNodes.length];
+    const a = polarToCartesian(node.angle, outerRadius);
+    const b = polarToCartesian(next.angle, outerRadius);
     return `M ${a.x} ${a.y} L ${b.x} ${b.y}`;
   });
 
-  const crossConnections = nodes.map((node, i) => {
-    const inner = innerNodes[i];
-    const a = polarToCartesian(node.angle, node.radius);
-    const b = polarToCartesian(inner.angle, inner.radius);
-    return `M ${a.x} ${a.y} L ${b.x} ${b.y}`;
+  const spokes = communityNodes.map((node) => {
+    const outer = polarToCartesian(node.angle, outerRadius);
+    return `M 200 200 L ${outer.x} ${outer.y}`;
   });
 
   return (
-    <div className="relative flex items-center justify-center">
-      <div className="absolute inset-0 rounded-full bg-burgundy/[0.04] blur-[80px]" />
+    <svg viewBox="0 0 400 400" className="h-full w-full" aria-hidden>
+      <defs>
+        <radialGradient id="warmCore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#6D071A" stopOpacity="0.08" />
+          <stop offset="100%" stopColor="#6D071A" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="warmLine" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#6D071A" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.3" />
+        </linearGradient>
+      </defs>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.3 }}
-        className="relative"
+      <circle cx="200" cy="200" r="155" fill="url(#warmCore)" />
+
+      <g className="orbit-ring" style={{ transformOrigin: "200px 200px" }}>
+        <circle
+          cx="200"
+          cy="200"
+          r={outerRadius}
+          fill="none"
+          stroke="rgba(109,7,26,0.08)"
+          strokeWidth="1"
+        />
+        <circle
+          cx="200"
+          cy="200"
+          r="88"
+          fill="none"
+          stroke="rgba(109,7,26,0.05)"
+          strokeWidth="1"
+          strokeDasharray="3 5"
+        />
+      </g>
+
+      {spokes.map((d, i) => (
+        <motion.line
+          key={`spoke-${i}`}
+          x1="200"
+          y1="200"
+          x2={polarToCartesian(communityNodes[i].angle, outerRadius).x}
+          y2={polarToCartesian(communityNodes[i].angle, outerRadius).y}
+          stroke="rgba(109,7,26,0.06)"
+          strokeWidth="1"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 + i * 0.06 }}
+        />
+      ))}
+
+      {connections.map((d, i) => (
+        <motion.path
+          key={`ring-${i}`}
+          d={d}
+          fill="none"
+          stroke="url(#warmLine)"
+          strokeWidth="1"
+          className="flow-line"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.5 }}
+          transition={{ duration: 1, delay: 0.5 + i * 0.08 }}
+        />
+      ))}
+
+      <circle cx="200" cy="200" r="28" fill="#FFFBF0" stroke="rgba(109,7,26,0.2)" strokeWidth="1.5" />
+      <circle cx="200" cy="200" r="10" fill="#6D071A" />
+      <text
+        x="200"
+        y="248"
+        textAnchor="middle"
+        className="fill-[#8B7D6B] text-[9px] uppercase tracking-widest"
+        style={{ fontFamily: "var(--font-dm-mono)" }}
       >
-        <svg
-          viewBox="0 0 400 400"
-          className="h-[320px] w-[320px] sm:h-[400px] sm:w-[400px] lg:h-[440px] lg:w-[440px]"
-          aria-hidden
-        >
-          <defs>
-            <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#6D071A" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="#6D071A" stopOpacity="0" />
-            </radialGradient>
-            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#6D071A" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.4" />
-            </linearGradient>
-          </defs>
+        Intelligence Core
+      </text>
 
-          <circle cx="200" cy="200" r="140" fill="url(#coreGlow)" />
-
-          <g className="orbit-ring" style={{ transformOrigin: "200px 200px" }}>
+      {communityNodes.map((node, i) => {
+        const pos = polarToCartesian(node.angle, outerRadius);
+        const isGold = i === 3;
+        return (
+          <motion.g
+            key={node.label}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 + i * 0.08 }}
+          >
             <circle
-              cx="200"
-              cy="200"
-              r="120"
-              fill="none"
-              stroke="rgba(109,7,26,0.1)"
-              strokeWidth="1"
-              strokeDasharray="4 8"
+              cx={pos.x}
+              cy={pos.y}
+              r="14"
+              fill={isGold ? "#D4AF37" : "#6D071A"}
+              opacity="0.12"
             />
             <circle
-              cx="200"
-              cy="200"
-              r="70"
-              fill="none"
-              stroke="rgba(109,7,26,0.06)"
-              strokeWidth="1"
-              strokeDasharray="3 6"
+              cx={pos.x}
+              cy={pos.y}
+              r="5"
+              fill={isGold ? "#D4AF37" : "#6D071A"}
             />
-          </g>
-
-          {connections.map((d, i) => (
-            <motion.path
-              key={`conn-${i}`}
-              d={d}
-              fill="none"
-              stroke="url(#lineGrad)"
-              strokeWidth="1"
-              className="flow-line"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 0.45 }}
-              transition={{ duration: 1.2, delay: 0.5 + i * 0.1 }}
-            />
-          ))}
-
-          {crossConnections.map((d, i) => (
-            <motion.path
-              key={`cross-${i}`}
-              d={d}
-              fill="none"
-              stroke="rgba(109,7,26,0.08)"
-              strokeWidth="0.5"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 + i * 0.08 }}
-            />
-          ))}
-
-          <motion.circle
-            cx="200"
-            cy="200"
-            r="24"
-            fill="#FFFBF0"
-            stroke="rgba(109,7,26,0.3)"
-            strokeWidth="1.5"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            style={{ transformOrigin: "200px 200px" }}
-          />
-          <motion.circle
-            cx="200"
-            cy="200"
-            r="8"
-            fill="#6D071A"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          />
-
-          {nodes.map((node, i) => {
-            const pos = polarToCartesian(node.angle, node.radius);
-            return (
-              <motion.g
-                key={node.id}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.6 + i * 0.1 }}
-              >
-                <circle
-                  cx={pos.x}
-                  cy={pos.y}
-                  r={node.size + 4}
-                  fill={node.color}
-                  opacity="0.12"
-                />
-                <circle
-                  cx={pos.x}
-                  cy={pos.y}
-                  r={node.size}
-                  fill={node.color}
-                  opacity="0.85"
-                />
-              </motion.g>
-            );
-          })}
-
-          {innerNodes.map((node, i) => {
-            const pos = polarToCartesian(node.angle, node.radius);
-            return (
-              <motion.circle
-                key={`inner-${i}`}
-                cx={pos.x}
-                cy={pos.y}
-                r={node.size}
-                fill={node.color}
-                opacity="0.7"
-                stroke={node.color === "#FFFBF0" ? "rgba(109,7,26,0.2)" : "none"}
-                strokeWidth="1"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.7 }}
-                transition={{ duration: 0.4, delay: 1 + i * 0.08 }}
-              />
-            );
-          })}
-        </svg>
-
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-          <div className="card rounded-full px-4 py-2">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-muted">
-              Live community signals
-            </p>
-          </div>
-        </div>
-      </motion.div>
-    </div>
+          </motion.g>
+        );
+      })}
+    </svg>
   );
 }

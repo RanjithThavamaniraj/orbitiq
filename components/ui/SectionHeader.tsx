@@ -7,6 +7,7 @@ interface SectionHeaderProps {
   description?: string;
   index?: string;
   className?: string;
+  align?: "left" | "center";
 }
 
 export function SectionHeader({
@@ -15,32 +16,46 @@ export function SectionHeader({
   description,
   index,
   className,
+  align = "left",
 }: SectionHeaderProps) {
   return (
-    <FadeIn className={cn("mb-20 lg:mb-24", className)}>
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-3xl">
+    <FadeIn className={cn("mb-16 lg:mb-20", align === "center" && "text-center", className)}>
+      <div
+        className={cn(
+          "flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between",
+          align === "center" && "lg:flex-col lg:items-center"
+        )}
+      >
+        <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
           <div className="mb-5 flex items-center gap-4">
             {index && (
-              <span className="font-mono text-5xl font-light leading-none tracking-tighter text-burgundy/[0.08] sm:text-6xl">
-                {index}
+              <span className="font-mono text-[11px] tracking-widest text-burgundy/40">
+                SYS.{index}
               </span>
             )}
-            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-burgundy">
+            <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold">
               {label}
             </span>
           </div>
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]">
+          <h2 className="font-display text-[2.25rem] leading-[1.1] text-burgundy-deep sm:text-4xl lg:text-[2.875rem]">
             {title}
           </h2>
         </div>
         {description && (
-          <p className="max-w-md text-sm leading-relaxed text-muted lg:pb-1 lg:text-base">
+          <p
+            className={cn(
+              "max-w-md text-[15px] leading-relaxed text-muted lg:pb-1",
+              align === "center" && "mx-auto"
+            )}
+          >
             {description}
           </p>
         )}
       </div>
-      <div className="editorial-rule mt-10" />
+      <div className="relative mt-10 flex items-center gap-3">
+        <span className="h-px flex-1 bg-gradient-to-r from-gold/50 via-burgundy/20 to-transparent" />
+        <span className="font-mono text-[8px] tracking-[0.3em] text-burgundy/30">◆</span>
+      </div>
     </FadeIn>
   );
 }
