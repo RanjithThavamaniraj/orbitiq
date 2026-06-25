@@ -6,17 +6,18 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Orbit } from "lucide-react";
+import { communityProfile as c } from "@/lib/community-profile";
 
 const inputs = ["Community Activity", "Discord Signals"];
 
 const processing = ["Apache Airflow", "Databricks", "Snowflake"];
 
 const outputs = [
-  "Community Health",
-  "Growth Signals",
-  "Retention Analysis",
-  "AI Insights",
-  "Recommendations",
+  `Community Health · ${c.healthScore}`,
+  `Growth Signals · ${c.monthlyGrowthFormatted}`,
+  `Retention Analysis · ${c.retentionFormatted}`,
+  `AI Insights · ${c.insightsGenerated}`,
+  `Recommendations · ${c.recommendationsGenerated}`,
 ];
 
 function FlowArrow({ vertical = false }: { vertical?: boolean }) {
@@ -93,12 +94,12 @@ function CoreHub() {
           <span className="text-gold">Intelligence Engine</span>
         </h3>
         <p className="mt-3 text-[13px] leading-relaxed text-white/55">
-          The intelligence layer that transforms raw community activity into actionable insight.
+          Processing {c.messagesPerDayFormatted} messages/day and {c.voiceHoursPerWeekFormatted} voice hours/week for {c.membersFormatted} members.
         </p>
         <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
           <span className="h-1.5 w-1.5 rounded-full bg-gold pulse-node" />
           <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-gold/80">
-            Signals in · Intelligence out
+            {c.insightsGenerated} insights · {c.recommendationsGenerated} recommendations
           </span>
         </div>
       </div>
@@ -174,7 +175,7 @@ export function TechStack() {
           index="06"
           label="Intelligence Layer"
           title="Community signals in. Actionable intelligence out."
-          description="OrbitIQ sits between raw community activity and operator decisions."
+          description={`OrbitIQ sits between raw community activity and operator decisions for ${c.name}.`}
         />
 
         <FadeIn delay={0.12}>
@@ -213,7 +214,7 @@ export function TechStack() {
           </div>
 
           <p className="mt-6 text-center font-mono text-[10px] tracking-[0.25em] text-muted">
-            RAW ACTIVITY → INTELLIGENCE ENGINE → OPERATOR DECISIONS
+            {c.name.toUpperCase()} · {c.membersFormatted} MEMBERS · {c.insightsGenerated} INSIGHTS · {c.recommendationsGenerated} RECOMMENDATIONS
           </p>
         </FadeIn>
       </div>

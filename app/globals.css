@@ -347,24 +347,41 @@ body {
   animation: marquee 45s linear infinite;
 }
 
-.hero-mega-type {
-  display: block;
-  line-height: 0.78;
-  letter-spacing: -0.045em;
-  white-space: nowrap;
-}
-
-.hero-mega-type--atmospheric {
-  font-size: clamp(4.5rem, 10vw, 8rem);
-  text-align: right;
-  padding-right: 2%;
-  color: rgba(109, 7, 26, 0.034);
+.hero-orbit-stage {
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
-  .hero-mega-type--atmospheric {
-    font-size: clamp(5.5rem, 9vw, 8.5rem);
-    color: rgba(109, 7, 26, 0.038);
+  .hero-orbit-stage {
+    left: 57%;
+    width: min(92vw, 49rem);
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-orbit-stage {
+    width: min(88vw, 51rem);
+  }
+}
+
+.hero-orbit-canvas {
+  overflow: visible;
+}
+
+.hero-orbit-process {
+  margin-top: calc(0.375rem - 100px);
+}
+
+@media (min-width: 1024px) {
+  .hero-orbit-canvas {
+    width: 160%;
+    max-width: none;
+    margin-left: -24%;
+  }
+
+  .hero-orbit-process {
+    margin-top: calc(0.5rem - 100px);
   }
 }
 

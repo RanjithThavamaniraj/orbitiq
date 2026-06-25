@@ -4,15 +4,16 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { HudPanel } from "@/components/ui/HudPanel";
 import { motion } from "framer-motion";
+import { communityProfile as c } from "@/lib/community-profile";
 
 const architectureLayers = [
-  { name: "Community Signals", description: "Discord events, conversations, reactions, member activity.", tag: "IN", offset: "lg:ml-0" },
-  { name: "Apache Airflow", description: "Reliable orchestration and ingestion.", tag: "ORC", offset: "lg:ml-[5%]" },
-  { name: "Databricks", description: "Behavioral processing and feature engineering.", tag: "PRC", offset: "lg:ml-[10%]" },
-  { name: "Snowflake", description: "Analytics-ready community warehouse.", tag: "STG", offset: "lg:ml-[15%]" },
+  { name: "Community Signals", description: `${c.name} — Discord events, ${c.messagesPerDayFormatted} messages/day, ${c.voiceHoursPerWeekFormatted} voice hrs/wk.`, tag: "IN", offset: "lg:ml-0" },
+  { name: "Apache Airflow", description: `Reliable orchestration ingesting activity for ${c.membersFormatted} members.`, tag: "ORC", offset: "lg:ml-[5%]" },
+  { name: "Databricks", description: `Behavioral processing across ${c.weeklyMessagesFormatted} weekly messages.`, tag: "PRC", offset: "lg:ml-[10%]" },
+  { name: "Snowflake", description: `Analytics-ready warehouse tracking ${c.retentionFormatted} retention and ${c.monthlyGrowthFormatted} growth.`, tag: "STG", offset: "lg:ml-[15%]" },
   {
     name: "OrbitIQ Intelligence Engine",
-    description: "Central intelligence layer producing recommendations and insights.",
+    description: `${c.healthScore} health score · ${c.insightsGenerated} insights · ${c.recommendationsGenerated} recommendations.`,
     tag: "CORE",
     offset: "lg:ml-[20%]",
     terminal: true,
@@ -60,7 +61,7 @@ export function Architecture() {
           </div>
 
           <p className="mt-6 text-center font-mono text-[11px] tracking-widest text-muted">
-            E2E FLOW · COMMUNITY SIGNAL → INTELLIGENCE
+            {c.name.toUpperCase()} · {c.membersFormatted} MEMBERS · {c.healthScore} HEALTH · {c.insightsGenerated} INSIGHTS
           </p>
         </FadeIn>
       </div>

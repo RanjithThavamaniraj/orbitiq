@@ -1,155 +1,121 @@
 "use client";
 
 import { FadeIn } from "@/components/ui/FadeIn";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { PremiumWidget } from "@/components/ui/PremiumWidget";
-import { AlertTriangle, Lightbulb, Sparkles, TrendingUp } from "lucide-react";
+import { AIInsightsBridgeIllustration } from "@/components/visuals/AIInsightsBridgeIllustration";
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { communityProfile as c } from "@/lib/community-profile";
 
 const insights = [
   {
     type: "Opportunity",
-    icon: TrendingUp,
-    title: "Peak engagement window identified",
-    body: "Tuesday and Thursday evenings show 3.1x higher activity than average. Consider scheduling community events during these periods.",
+    title: "Peak Engagement Window Identified",
+    body: `Community activity is 3.1× higher on Tuesday and Thursday evenings across ${c.messagesPerDayFormatted} daily messages.`,
     confidence: 94,
-    time: "2m ago",
     id: "SIG-2847",
   },
   {
     type: "Alert",
-    icon: AlertTriangle,
-    title: "Retention dip detected",
-    body: "Members who joined in the last 14 days are returning 22% less frequently than previous cohorts.",
+    title: "Retention Dip Detected",
+    body: `New members are returning less frequently. Retention currently sits at ${c.retentionFormatted}, despite an overall health score of ${c.healthScore}.`,
     confidence: 89,
-    time: "14m ago",
     id: "SIG-2841",
   },
   {
     type: "Recommendation",
-    icon: Lightbulb,
-    title: "Newcomer onboarding recommended",
-    body: "Create a newcomer onboarding channel and automated welcome sequence.",
+    title: "Newcomer Onboarding Recommended",
+    body: "Create a dedicated onboarding channel and automated welcome sequence to improve activation rates.",
     confidence: 91,
-    time: "1h ago",
     id: "SIG-2835",
   },
   {
     type: "Trend",
-    icon: Sparkles,
-    title: "Voice participation correlates with member retention",
-    body: "Communities with weekly voice sessions retain members 2.4x longer.",
+    title: "Voice Participation Correlates With Retention",
+    body: "Communities with higher voice participation show significantly stronger long-term retention patterns.",
     confidence: 96,
-    time: "3h ago",
     id: "SIG-2829",
   },
 ];
 
-function ConfidenceBadge({ value, large }: { value: number; large?: boolean }) {
+function ConfidenceBadge({ value }: { value: number }) {
   return (
-    <div
-      className={cn(
-        "flex flex-col items-center justify-center rounded-2xl border border-gold/15 bg-black/30",
-        large ? "px-8 py-6" : "px-4 py-3"
-      )}
-    >
-      <span className={cn("font-display text-gold", large ? "text-5xl" : "text-2xl")}>{value}</span>
-      <span className="mt-1 font-mono text-[8px] uppercase tracking-[0.22em] text-white/40">
-        confidence
-      </span>
-    </div>
+    <span className="shrink-0 rounded-full border border-gold/20 bg-gold/[0.06] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-burgundy/65">
+      {value}% Confidence
+    </span>
   );
 }
 
-function MosaicTile({
-  type,
-  icon: Icon,
-  title,
-  body,
-  confidence,
-  time,
-  id,
-  delay,
+function InsightLine({
+  insight,
+  index,
 }: {
-  type: string;
-  icon: LucideIcon;
-  title: string;
-  body: string;
-  confidence: number;
-  time: string;
-  id: string;
-  delay: number;
+  insight: (typeof insights)[number];
+  index: number;
 }) {
   return (
-    <PremiumWidget delay={delay} className="flex h-full flex-col">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-gold/20 bg-gold/[0.08]">
-          <Icon className="h-4 w-4 text-gold" strokeWidth={1.5} />
-        </div>
-        <ConfidenceBadge value={confidence} />
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.5 + index * 0.1, duration: 0.45 }}
+      className="border-t border-burgundy/8 py-4 first:border-t-0"
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2 gap-y-1">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-burgundy/55">
+          {insight.type} · {insight.id}
+        </span>
+        <ConfidenceBadge value={insight.confidence} />
       </div>
-      <div className="mt-4 flex flex-wrap items-center gap-2">
-        <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-gold/80">{type}</span>
-        <span className="font-mono text-[8px] text-white/30">{id}</span>
-      </div>
-      <h3 className="mt-2 font-display text-base leading-snug text-white/95">{title}</h3>
-      <p className="mt-2 flex-1 text-[12px] leading-relaxed text-white/50">{body}</p>
-      <p className="mt-4 font-mono text-[9px] text-white/35">{time}</p>
-    </PremiumWidget>
+      <p className="mt-2 font-display text-[15px] leading-snug text-burgundy-deep">{insight.title}</p>
+      <p className="mt-1.5 text-[13px] leading-relaxed text-muted">{insight.body}</p>
+    </motion.div>
   );
 }
 
 export function AIInsights() {
-  const [featured, ...mosaic] = insights;
-
   return (
-    <section className="premium-section section-screen relative border-t border-gold/10">
+    <section className="section-screen relative overflow-hidden border-t border-border/50">
+      <div className="absolute inset-0 paper-texture" />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 45% at 85% 25%, rgba(255,251,240,0.9) 0%, rgba(255,250,205,0.4) 50%, transparent 80%)",
+        }}
+      />
+
       <div className="page-container section-screen__content relative">
-        <SectionHeader
-          index="05"
-          label="AI Insights"
-          title="Intelligence that explains itself"
-          description="OrbitIQ doesn't just show metrics. It explains why they changed and what to do next."
-          tone="dark"
-        />
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          <FadeIn delay={0.06} className="relative z-10">
+            <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-burgundy">
+              SYS.05 · AI Insights
+            </p>
 
-        <FadeIn delay={0.08}>
-          <PremiumWidget glow delay={0} className="mb-4 lg:mb-5">
-            <div className="grid gap-5 lg:grid-cols-12 lg:gap-6">
-              <div className="lg:col-span-8">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/25 bg-gold/[0.1]">
-                    <featured.icon className="h-4 w-4 text-gold" strokeWidth={1.5} />
-                  </div>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-gold/85">
-                      Featured · {featured.type}
-                    </span>
-                    <span className="font-mono text-[9px] text-white/35">{featured.id}</span>
-                    <span className="font-mono text-[9px] text-white/45">{featured.time}</span>
-                  </div>
-                </div>
-                <h3 className="mt-5 font-display text-2xl leading-tight text-white lg:text-[1.75rem] xl:text-3xl">
-                  {featured.title}
-                </h3>
-                <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-white/55 lg:text-[15px]">
-                  {featured.body}
-                </p>
-              </div>
-              <div className="flex items-center justify-center lg:col-span-4 lg:border-l lg:border-gold/10 lg:pl-8">
-                <ConfidenceBadge value={featured.confidence} large />
-              </div>
+            <h2 className="font-display text-[2rem] leading-[1.15] text-burgundy-deep/70 sm:text-[2.25rem] lg:text-[2.5rem] xl:text-[2.75rem]">
+              You lead the{" "}
+              <span className="font-semibold text-burgundy-deep">community.</span>
+            </h2>
+            <h2 className="mt-1 font-display text-[2rem] leading-[1.15] text-burgundy-deep/70 sm:text-[2.25rem] lg:text-[2.5rem] xl:text-[2.75rem]">
+              OrbitIQ delivers the{" "}
+              <span className="font-semibold text-burgundy">intelligence.</span>
+            </h2>
+
+            <p className="mt-6 max-w-md text-[14px] leading-relaxed text-muted lg:text-[15px]">
+              OrbitIQ has generated {c.insightsGenerated} insights and {c.recommendationsGenerated}{" "}
+              recommendations from 2.4M community events — explaining why metrics changed and what
+              operators should do next.
+            </p>
+
+            <div className="mt-8 max-w-lg">
+              {insights.map((insight, index) => (
+                <InsightLine key={insight.id} insight={insight} index={index} />
+              ))}
             </div>
-          </PremiumWidget>
+          </FadeIn>
 
-          <div className="grid gap-3 sm:grid-cols-3 lg:gap-4">
-            {mosaic.map((insight, index) => (
-              <MosaicTile key={insight.id} {...insight} delay={0.1 + index * 0.08} />
-            ))}
-          </div>
-        </FadeIn>
+          <FadeIn delay={0.14} className="relative z-10 lg:min-h-[380px]">
+            <AIInsightsBridgeIllustration />
+          </FadeIn>
+        </div>
       </div>
     </section>
   );

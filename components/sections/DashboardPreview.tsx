@@ -5,11 +5,12 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { PremiumWidget } from "@/components/ui/PremiumWidget";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { communityProfile as c } from "@/lib/community-profile";
 
 const kpis = [
-  { label: "Active Members", value: "12.8K", change: "+18.3%" },
-  { label: "Engagement Rate", value: "34.6%", change: "+2.1%" },
-  { label: "Community Health", value: "87", change: "+4.2%" },
+  { label: "Active Members", value: c.membersFormatted, change: c.monthlyGrowthFormatted },
+  { label: "Messages Per Day", value: c.messagesPerDayFormatted, change: c.monthlyGrowthFormatted },
+  { label: "Community Health", value: String(c.healthScore), change: c.healthChange },
 ];
 
 const barHeights = [42, 68, 55, 82, 64, 90, 72, 88];
@@ -24,15 +25,15 @@ const linePath = growthPoints.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y
 const areaPath = `${linePath} L 880 120 L 0 120 Z`;
 
 const aiInsights = [
-  "Weekend engagement peaks 2.3× in #general",
-  "Retention up 12% after onboarding flow",
-  "3 channels drive 68% of activity",
+  `${c.insightsGenerated} insights generated for ${c.name} this month`,
+  `${c.recommendationsGenerated} actionable recommendations pending operator review`,
+  `${c.voiceHoursPerWeekFormatted} voice hours tracked across weekly sessions`,
 ];
 
 const feedItems = [
-  { label: "Weekly Activity", value: "4.2M Events", trend: "+12%" },
-  { label: "Growth Trend", value: "+94%", trend: "12 wk" },
-  { label: "Retention", value: "82%", trend: "+3.1%" },
+  { label: "Weekly Activity", value: `${c.weeklyMessagesFormatted} Messages`, trend: c.monthlyGrowthFormatted },
+  { label: "Monthly Growth", value: c.monthlyGrowthFormatted, trend: "30 day" },
+  { label: "Retention", value: c.retentionFormatted, trend: c.healthChange },
 ];
 
 function OrbitRadar() {
@@ -62,7 +63,7 @@ function OrbitRadar() {
 
 function HealthGauge() {
   const circumference = 2 * Math.PI * 54;
-  const progress = 0.87;
+  const progress = c.healthScore / 100;
 
   return (
     <div className="relative mx-auto flex h-[160px] w-[160px] items-center justify-center">
@@ -90,7 +91,7 @@ function HealthGauge() {
         </defs>
       </svg>
       <div className="absolute text-center">
-        <p className="font-display text-3xl text-gold">87</p>
+        <p className="font-display text-3xl text-gold">{c.healthScore}</p>
         <p className="font-mono text-[8px] uppercase tracking-widest text-white/45">Health</p>
       </div>
     </div>
@@ -111,7 +112,7 @@ export function DashboardPreview() {
 
         <FadeIn delay={0.1}>
           <div className="mb-3 flex items-center justify-between rounded-xl border border-gold/10 bg-black/20 px-4 py-2.5 backdrop-blur-sm">
-            <span className="font-mono text-[10px] text-white/50">orbitiq.app · command center</span>
+            <span className="font-mono text-[10px] text-white/50">{c.name} · command center</span>
             <div className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-gold pulse-node" />
               <span className="font-mono text-[9px] uppercase tracking-widest text-gold/80">Live</span>
@@ -122,7 +123,7 @@ export function DashboardPreview() {
             <PremiumWidget label="Signal Orbit" className="lg:col-span-4" glow delay={0.05}>
               <OrbitRadar />
               <p className="mt-3 text-center font-mono text-[9px] uppercase tracking-widest text-white/40">
-                Real-time community pulse
+                {c.name} · live pulse
               </p>
             </PremiumWidget>
 
@@ -162,7 +163,7 @@ export function DashboardPreview() {
 
             <PremiumWidget label="Growth" title="12-Week Trajectory" className="lg:col-span-4" delay={0.25}>
               <div className="flex items-end justify-between">
-                <span className="font-display text-2xl text-gold">+94%</span>
+                <span className="font-display text-2xl text-gold">{c.monthlyGrowthFormatted}</span>
               </div>
               <svg viewBox="0 0 880 120" className="mt-3 w-full" preserveAspectRatio="none">
                 <motion.path d={areaPath} fill="url(#dashAreaGrad)" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} />

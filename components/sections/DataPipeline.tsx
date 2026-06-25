@@ -4,39 +4,40 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { HudPanel } from "@/components/ui/HudPanel";
 import { motion } from "framer-motion";
+import { communityProfile as c } from "@/lib/community-profile";
 
 const pipelineSteps = [
   {
     name: "Discord",
-    description: "Real-time events, messages, reactions, voice activity, and member behavior.",
+    description: `${c.messagesPerDayFormatted} messages/day · ${c.voiceHoursPerWeekFormatted} voice hrs/wk from ${c.name}.`,
     x: 80,
     y: 200,
     tag: "IN-01",
   },
   {
     name: "Apache Airflow",
-    description: "Workflow orchestration, ingestion scheduling, retries, monitoring.",
+    description: `Orchestrating ingestion for ${c.membersFormatted} members with scheduling, retries, and monitoring.`,
     x: 280,
     y: 120,
     tag: "ORC-02",
   },
   {
     name: "Databricks",
-    description: "Distributed processing, feature engineering, behavioral analytics.",
+    description: `Processing ${c.weeklyMessagesFormatted} weekly messages into behavioral analytics and features.`,
     x: 520,
     y: 200,
     tag: "PRC-03",
   },
   {
     name: "Snowflake",
-    description: "Analytics-ready warehouse optimized for reporting and AI workloads.",
+    description: `Analytics-ready warehouse powering ${c.insightsGenerated} insights and ${c.retentionFormatted} retention tracking.`,
     x: 720,
     y: 120,
     tag: "STG-04",
   },
   {
     name: "OrbitIQ",
-    description: "Transforms raw activity into actionable intelligence and operator insights.",
+    description: `${c.healthScore} health score · ${c.monthlyGrowthFormatted} growth · ${c.recommendationsGenerated} recommendations delivered.`,
     x: 920,
     y: 200,
     tag: "OUT-05",
@@ -57,7 +58,7 @@ export function DataPipeline() {
           index="01"
           label="Data Pipeline"
           title="From community activity to intelligence"
-          description="Every message, reaction, voice session, and member action flows through a reliable analytics pipeline built for community operators."
+          description={`Every message, reaction, voice session, and member action from ${c.name} flows through a reliable analytics pipeline — ${c.messagesPerDayFormatted} messages/day across ${c.membersFormatted} members.`}
         />
 
         <FadeIn delay={0.15}>

@@ -6,7 +6,6 @@ import { Orbit } from "lucide-react";
 
 const navLinks = [
   { label: "Pipeline", href: "#pipeline" },
-  { label: "Dashboard", href: "#dashboard" },
   { label: "Features", href: "#features" },
   { label: "Architecture", href: "#architecture" },
 ];
