@@ -99,8 +99,8 @@ function HealthGauge() {
 
 export function DashboardPreview() {
   return (
-    <section id="dashboard" className="premium-section section-pad relative overflow-hidden">
-      <div className="page-container relative">
+    <section id="dashboard" className="premium-section section-screen relative">
+      <div className="page-container section-screen__content relative">
         <SectionHeader
           index="02"
           label="Dashboard"

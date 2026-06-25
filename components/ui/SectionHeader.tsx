@@ -23,7 +23,7 @@ export function SectionHeader({
   const isDark = tone === "dark";
 
   return (
-    <FadeIn className={cn("mb-7 lg:mb-9", align === "center" && "text-center", className)}>
+    <FadeIn className={cn("mb-6 lg:mb-8", align === "center" && "text-center", className)}>
       <div
         className={cn(
           "flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-6",

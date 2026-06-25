@@ -49,10 +49,10 @@ const pathD =
 
 export function DataPipeline() {
   return (
-    <section id="pipeline" className="section-pad relative overflow-hidden">
+    <section id="pipeline" className="section-screen relative">
       <div className="absolute inset-0 sci-fi-bg opacity-50" />
 
-      <div className="page-container relative">
+      <div className="page-container section-screen__content relative">
         <SectionHeader
           index="01"
           label="Data Pipeline"

@@ -1,3 +1,5 @@
+@import "lenis/dist/lenis.css";
+
 @import "tailwindcss";
 
 :root {
@@ -18,6 +20,7 @@
   --hud-glow: 0 0 32px rgba(212, 175, 55, 0.18), 0 0 64px rgba(109, 7, 26, 0.12);
   --hud-dark: rgba(74, 0, 14, 0.94);
   --hud-border: rgba(212, 175, 55, 0.22);
+  --nav-height: 4.25rem;
 }
 
 @theme inline {
@@ -39,7 +42,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
 }
 
 body {
@@ -244,6 +247,33 @@ body {
   .section-pad {
     padding-top: 4rem;
     padding-bottom: 4rem;
+  }
+}
+
+.section-screen {
+  position: relative;
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: var(--nav-height);
+}
+
+.section-screen[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+.section-screen__content {
+  position: relative;
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .section-screen__content {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
   }
 }
 

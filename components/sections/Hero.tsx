@@ -14,7 +14,7 @@ const narrative = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-[4.5rem]">
+    <section className="section-screen relative overflow-hidden">
       <div className="absolute inset-0 paper-texture" />
 
       <div
@@ -25,7 +25,7 @@ export function Hero() {
         }}
       />
 
-      <div className="page-container relative py-6 sm:py-8 lg:py-9">
+      <div className="page-container section-screen__content relative">
         <div className="relative grid items-center gap-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0">
           <FadeIn delay={0.06} className="relative z-30 lg:col-span-5 lg:row-start-1">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.28em] text-burgundy">
@@ -44,7 +44,7 @@ export function Hero() {
             className="relative z-20 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1"
           >
             <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:ml-auto lg:w-[92%] lg:max-w-[36rem]">
-              <div className="relative aspect-[5/4] w-full min-h-[260px] sm:min-h-[300px] lg:min-h-[min(40vh,380px)] xl:min-h-[min(44vh,420px)]">
+              <div className="relative aspect-[5/4] w-full min-h-[220px] sm:min-h-[260px] lg:min-h-[min(36vh,340px)] xl:min-h-[min(40vh,380px)]">
                 <HeroOrbitEnvironment className="inset-0" />
                 <div className="absolute inset-0">
                   <HeroOrbitArtwork />

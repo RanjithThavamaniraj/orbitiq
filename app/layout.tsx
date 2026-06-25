@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono, Instrument_Serif } from "next/font/google";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -42,7 +43,10 @@ export default function RootLayout({
       lang="en"
       className={`${dmSans.variable} ${instrumentSerif.variable} ${dmMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full page-canvas text-text">{children}</body>
+      <body className="min-h-full page-canvas text-text">
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

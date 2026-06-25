@@ -6,25 +6,30 @@ import { HudPanel } from "@/components/ui/HudPanel";
 import { motion } from "framer-motion";
 
 const architectureLayers = [
-  { name: "Discord API", description: "Gateway events, REST endpoints, webhooks", tag: "SRC", offset: "lg:ml-0" },
-  { name: "Apache Airflow", description: "DAG orchestration, scheduling, retries", tag: "ORC", offset: "lg:ml-[5%]" },
-  { name: "Databricks", description: "Spark jobs, Delta Lake, ML pipelines", tag: "PRC", offset: "lg:ml-[10%]" },
-  { name: "Snowflake", description: "Data warehouse, SQL analytics, sharing", tag: "STG", offset: "lg:ml-[15%]" },
-  { name: "Analytics Layer", description: "dbt models, metrics API, caching", tag: "SEM", offset: "lg:ml-[20%]" },
-  { name: "Next.js Dashboard", description: "Real-time UI, SSR, edge delivery", tag: "UI", offset: "lg:ml-[25%]", terminal: true },
+  { name: "Community Signals", description: "Discord events, member activity, and engagement patterns", tag: "IN", offset: "lg:ml-0" },
+  { name: "Apache Airflow", description: "DAG orchestration, scheduling, and reliable ingestion", tag: "ORC", offset: "lg:ml-[5%]" },
+  { name: "Databricks", description: "Distributed processing, feature engineering, and ML pipelines", tag: "PRC", offset: "lg:ml-[10%]" },
+  { name: "Snowflake", description: "Unified warehouse for analytics-ready community datasets", tag: "STG", offset: "lg:ml-[15%]" },
+  {
+    name: "OrbitIQ Intelligence Engine",
+    description: "Transforms raw signals into health scores, growth trends, and AI recommendations",
+    tag: "CORE",
+    offset: "lg:ml-[20%]",
+    terminal: true,
+  },
 ];
 
 export function Architecture() {
   return (
-    <section id="architecture" className="section-pad relative sci-fi-bg overflow-hidden">
+    <section id="architecture" className="section-screen relative sci-fi-bg">
       <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 rounded-full bg-burgundy/[0.04] blur-3xl" />
 
-      <div className="page-container relative">
+      <div className="page-container section-screen__content relative">
         <SectionHeader
           index="04"
           label="Architecture"
-          title="Enterprise-grade, thoughtfully composed"
-          description="A vertically integrated stack built for reliability. Each layer is independently monitorable and horizontally scalable."
+          title="Signals in, intelligence out"
+          description="A reliable path from community activity to operator insight — with OrbitIQ as the intelligence layer your team acts on."
         />
 
         <FadeIn delay={0.15}>
@@ -45,7 +50,7 @@ export function Architecture() {
                     <div className="mt-3 flex items-center gap-2">
                       <span className="h-1.5 w-1.5 rounded-full bg-gold pulse-node" />
                       <span className="font-mono text-[9px] uppercase tracking-widest text-gold/80">
-                        Output · Live Dashboard
+                        Output · Actionable insights
                       </span>
                     </div>
                   )}
@@ -55,7 +60,7 @@ export function Architecture() {
           </div>
 
           <p className="mt-6 text-center font-mono text-[11px] tracking-widest text-muted">
-            E2E LATENCY · ~45s · EVENT → DASHBOARD
+            E2E FLOW · COMMUNITY SIGNAL → INTELLIGENCE
           </p>
         </FadeIn>
       </div>

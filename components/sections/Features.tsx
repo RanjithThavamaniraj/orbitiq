@@ -65,8 +65,8 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="premium-section section-pad relative overflow-hidden border-t border-gold/10">
-      <div className="page-container relative">
+    <section id="features" className="premium-section section-screen relative border-t border-gold/10">
+      <div className="page-container section-screen__content relative">
         <SectionHeader
           index="03"
           label="Capabilities"

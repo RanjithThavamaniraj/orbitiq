@@ -1,176 +1,220 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { ArrowDown, ArrowRight, Orbit } from "lucide-react";
 
-const CX = 250;
-const CY = 250;
-const NODE_R = 112;
-const TITLE_R = 136;
-const ROLE_R = 154;
-const INNER_R = 72;
+const inputs = ["Community Activity", "Discord Signals"];
 
-const technologies = [
-  { name: "Airflow", role: "Orchestration", angle: 0, tangential: 0 },
-  { name: "Databricks", role: "Processing", angle: 60, tangential: 16 },
-  { name: "Snowflake", role: "Warehouse", angle: 120, tangential: 14 },
-  { name: "Next.js", role: "Framework", angle: 180, tangential: 0 },
-  { name: "TypeScript", role: "Language", angle: 240, tangential: -14 },
-  { name: "Vercel", role: "Deployment", angle: 300, tangential: -16 },
-] as const;
+const processing = ["Airflow", "Databricks", "Snowflake"];
 
-function polarToCartesian(angle: number, radius: number, cx = CX, cy = CY) {
-  const rad = (angle - 90) * (Math.PI / 180);
-  return { x: cx + radius * Math.cos(rad), y: cy + radius * Math.sin(rad) };
+const outputs = [
+  "Community Health",
+  "Growth Signals",
+  "Retention Analysis",
+  "AI Insights",
+  "Recommendations",
+];
+
+function FlowArrow({ vertical = false }: { vertical?: boolean }) {
+  return (
+    <div
+      className={cn(
+        "flex shrink-0 items-center justify-center text-burgundy/25",
+        vertical ? "py-1" : "px-1 lg:px-2"
+      )}
+      aria-hidden
+    >
+      {vertical ? (
+        <ArrowDown className="h-4 w-4" strokeWidth={1.5} />
+      ) : (
+        <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+      )}
+    </div>
+  );
 }
 
-function getPerpendicular(angle: number) {
-  const rad = (angle - 90) * (Math.PI / 180);
-  return { px: -Math.sin(rad), py: Math.cos(rad) };
+function StageLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.28em] text-burgundy/55">{children}</p>
+  );
 }
 
-function getLabelPosition(angle: number, radius: number, tangential: number) {
-  const base = polarToCartesian(angle, radius);
-  const perp = getPerpendicular(angle);
-  return {
-    x: base.x + perp.px * tangential,
-    y: base.y + perp.py * tangential,
-  };
+function ItemList({ items, variant = "default" }: { items: string[]; variant?: "default" | "muted" | "output" }) {
+  return (
+    <ul className="space-y-2">
+      {items.map((item, i) => (
+        <motion.li
+          key={item}
+          initial={{ opacity: 0, x: variant === "output" ? 8 : -8 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.08 + i * 0.05 }}
+          className={cn(
+            "rounded-lg border px-3 py-2.5 text-[13px] leading-snug",
+            variant === "default" &&
+              "border-burgundy/12 bg-white/50 text-burgundy-deep backdrop-blur-sm",
+            variant === "muted" &&
+              "border-border/60 bg-background/40 font-mono text-[11px] uppercase tracking-[0.12em] text-muted",
+            variant === "output" &&
+              "border-gold/20 bg-gradient-to-r from-gold/[0.08] to-transparent text-burgundy-deep"
+          )}
+        >
+          {item}
+        </motion.li>
+      ))}
+    </ul>
+  );
+}
+
+function CoreHub() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.96 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-burgundy-deep via-[#3a0010] to-[#2a000c] p-5 shadow-[0_16px_48px_rgba(74,0,14,0.28)] lg:p-6"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(212,175,55,0.14),transparent_65%)]" />
+      <div className="relative">
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/35 bg-gold/10">
+            <Orbit className="h-5 w-5 text-gold" strokeWidth={1.5} />
+          </div>
+          <StageLabel>Core</StageLabel>
+        </div>
+        <h3 className="font-display text-xl leading-tight text-white lg:text-2xl">
+          OrbitIQ
+          <br />
+          <span className="text-gold">Intelligence Engine</span>
+        </h3>
+        <p className="mt-3 text-[13px] leading-relaxed text-white/55">
+          The intelligence layer that transforms raw community activity into actionable insight.
+        </p>
+        <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold pulse-node" />
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-gold/80">
+            Signals in · Intelligence out
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function FlowDiagram({ vertical = false }: { vertical?: boolean }) {
+  if (vertical) {
+    return (
+      <div className="flex flex-col">
+        <div>
+          <StageLabel>Inputs</StageLabel>
+          <ItemList items={inputs} />
+        </div>
+        <FlowArrow vertical />
+        <div>
+          <StageLabel>Processing</StageLabel>
+          <p className="mb-2 font-mono text-[8px] uppercase tracking-[0.2em] text-muted">
+            Data infrastructure
+          </p>
+          <ItemList items={processing} variant="muted" />
+        </div>
+        <FlowArrow vertical />
+        <CoreHub />
+        <FlowArrow vertical />
+        <div>
+          <StageLabel>Outputs</StageLabel>
+          <ItemList items={outputs} variant="output" />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid items-stretch gap-3 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1.15fr)_auto_minmax(0,1.2fr)] lg:gap-0">
+      <div className="flex flex-col justify-center">
+        <StageLabel>Inputs</StageLabel>
+        <ItemList items={inputs} />
+      </div>
+
+      <FlowArrow />
+
+      <div className="flex flex-col justify-center">
+        <StageLabel>Processing</StageLabel>
+        <p className="mb-2 font-mono text-[8px] uppercase tracking-[0.2em] text-muted">
+          Data infrastructure
+        </p>
+        <ItemList items={processing} variant="muted" />
+      </div>
+
+      <FlowArrow />
+
+      <CoreHub />
+
+      <FlowArrow />
+
+      <div className="flex flex-col justify-center">
+        <StageLabel>Outputs</StageLabel>
+        <ItemList items={outputs} variant="output" />
+      </div>
+    </div>
+  );
 }
 
 export function TechStack() {
   return (
-    <section className="section-pad relative overflow-hidden border-t border-border/50">
+    <section className="section-screen relative border-t border-border/50">
       <div className="absolute inset-0 sci-fi-bg" />
 
-      <div className="page-container relative">
+      <div className="page-container section-screen__content relative">
         <SectionHeader
           index="06"
-          label="Technology"
-          title="Built on proven infrastructure"
-          description="Integrates with the tools your data team already trusts — without forcing you to rebuild what works."
+          label="Intelligence Layer"
+          title="Community signals in. Actionable intelligence out."
+          description="OrbitIQ sits at the center of your stack — absorbing community activity and delivering the insights operators act on."
         />
 
-        <FadeIn delay={0.15}>
-          <div className="mx-auto w-full max-w-md sm:max-w-lg">
-            <svg
-              viewBox="0 0 500 500"
-              className="mx-auto h-auto w-full"
-              role="img"
-              aria-label="OrbitIQ technology ecosystem: Airflow, Databricks, Snowflake, Next.js, TypeScript, and Vercel"
-            >
-              <circle
-                cx={CX}
-                cy={CY}
-                r={NODE_R}
-                fill="none"
-                stroke="rgba(109,7,26,0.06)"
-                strokeWidth="1"
-                strokeDasharray="3 6"
-              />
-              <circle
-                cx={CX}
-                cy={CY}
-                r={INNER_R}
-                fill="none"
-                stroke="rgba(212,175,55,0.12)"
-                strokeWidth="1"
-              />
+        <FadeIn delay={0.12}>
+          <div
+            className="relative overflow-hidden rounded-2xl border border-burgundy/10 bg-gradient-to-br from-background/80 via-[#fffef5]/90 to-background/70 p-5 backdrop-blur-sm lg:rounded-[1.25rem] lg:p-7"
+            role="img"
+            aria-label="OrbitIQ system flow: community inputs flow through data infrastructure into the OrbitIQ Intelligence Engine, producing health, growth, retention, AI insights, and recommendations"
+          >
+            <div className="pointer-events-none absolute inset-0 hud-grid opacity-40" />
 
-              {technologies.map((tech, i) => {
-                const node = getLabelPosition(tech.angle, NODE_R, tech.tangential);
-                const inner = polarToCartesian(tech.angle, INNER_R);
-                const title = getLabelPosition(tech.angle, TITLE_R, tech.tangential);
-                const role = getLabelPosition(tech.angle, ROLE_R, tech.tangential);
-
-                return (
-                  <g key={tech.name}>
-                    <motion.line
-                      x1={CX}
-                      y1={CY}
-                      x2={node.x}
-                      y2={node.y}
-                      stroke="rgba(212,175,55,0.22)"
-                      strokeWidth="1"
-                      initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 + i * 0.08 }}
-                    />
-                    <motion.line
-                      x1={inner.x}
-                      y1={inner.y}
-                      x2={node.x}
-                      y2={node.y}
-                      stroke="rgba(109,7,26,0.12)"
-                      strokeWidth="1"
-                      strokeDasharray="2 4"
-                      initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + i * 0.08 }}
-                    />
-
-                    <text
-                      x={title.x}
-                      y={title.y}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fill="#6D071A"
-                      fontSize="14"
-                      fontFamily="var(--font-instrument-serif), Georgia, serif"
-                    >
-                      {tech.name}
-                    </text>
-                    <text
-                      x={role.x}
-                      y={role.y}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fill="rgba(107,93,79,0.72)"
-                      fontSize="8"
-                      fontFamily="var(--font-dm-mono), monospace"
-                      letterSpacing="0.22em"
-                    >
-                      {tech.role.toUpperCase()}
-                    </text>
-
-                    <motion.circle
-                      cx={node.x}
-                      cy={node.y}
-                      r="5.5"
-                      fill="#4A000E"
-                      stroke="#D4AF37"
-                      strokeWidth="1.5"
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.4 + i * 0.08 }}
-                    />
-                  </g>
-                );
-              })}
-
-              <circle cx={CX} cy={CY} r="20" fill="#4A000E" stroke="#D4AF37" strokeWidth="1.5" />
-              <text
-                x={CX}
-                y={CY + 3}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fill="#D4AF37"
-                fontSize="7"
-                fontFamily="var(--font-dm-mono), monospace"
-                letterSpacing="0.12em"
+            <div className="relative hidden lg:block">
+              <svg
+                className="pointer-events-none absolute inset-0 h-full w-full"
+                viewBox="0 0 1000 200"
+                preserveAspectRatio="none"
+                aria-hidden
               >
-                ORBITIQ
-              </text>
-            </svg>
+                <motion.path
+                  d="M 80 100 C 200 100, 220 100, 320 100 C 420 100, 440 100, 500 100 C 560 100, 580 100, 680 100 C 780 100, 800 100, 920 100"
+                  fill="none"
+                  stroke="rgba(212,175,55,0.2)"
+                  strokeWidth="1.5"
+                  strokeDasharray="4 6"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                />
+              </svg>
+              <FlowDiagram />
+            </div>
 
-            <p className="mt-6 text-center font-mono text-[10px] tracking-[0.25em] text-muted">
-              6 INTEGRATIONS · UNIFIED DATA FABRIC
-            </p>
+            <div className="relative lg:hidden">
+              <FlowDiagram vertical />
+            </div>
           </div>
+
+          <p className="mt-6 text-center font-mono text-[10px] tracking-[0.25em] text-muted">
+            RAW ACTIVITY → INTELLIGENCE ENGINE → OPERATOR INSIGHTS
+          </p>
         </FadeIn>
       </div>
     </section>

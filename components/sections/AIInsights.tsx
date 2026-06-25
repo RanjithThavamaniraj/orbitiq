@@ -105,8 +105,8 @@ export function AIInsights() {
   const [featured, ...mosaic] = insights;
 
   return (
-    <section className="premium-section section-pad relative overflow-hidden border-t border-gold/10">
-      <div className="page-container relative">
+    <section className="premium-section section-screen relative border-t border-gold/10">
+      <div className="page-container section-screen__content relative">
         <SectionHeader
           index="05"
           label="AI Insights"
