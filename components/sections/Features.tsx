@@ -15,7 +15,7 @@ import {
 const features = [
   {
     title: "Engagement Analytics",
-    description: "Track message velocity, reaction patterns, and channel participation with granular time-series breakdowns.",
+    description: "Track message velocity, reactions, active channels, and participation trends.",
     icon: BarChart3,
     code: "ENG-01",
     stat: "4.2K",
@@ -23,7 +23,7 @@ const features = [
   },
   {
     title: "Community Health",
-    description: "Composite health scoring that weighs sentiment, activity distribution, and member satisfaction signals.",
+    description: "Measure sentiment, activity consistency, satisfaction signals, and member quality.",
     icon: HeartPulse,
     code: "HLT-02",
     stat: "87",
@@ -31,7 +31,7 @@ const features = [
   },
   {
     title: "Retention Tracking",
-    description: "Cohort-based retention analysis that identifies drop-off points and surfaces intervention opportunities.",
+    description: "Identify drop-off points, inactive cohorts, and long-term member behavior.",
     icon: Users,
     code: "RET-03",
     stat: "+12%",
@@ -39,7 +39,7 @@ const features = [
   },
   {
     title: "Growth Intelligence",
-    description: "Understand acquisition channels, referral patterns, and viral loops with confidence intervals.",
+    description: "Understand acquisition sources, referral loops, and growth patterns.",
     icon: LineChart,
     code: "GRW-04",
     stat: "+94%",
@@ -47,7 +47,7 @@ const features = [
   },
   {
     title: "AI Insights",
-    description: "Natural language summaries of community trends, anomaly detection, and contextual recommendations.",
+    description: "Natural-language summaries explaining community trends and anomalies.",
     icon: Brain,
     code: "AI-05",
     stat: "96%",
@@ -55,7 +55,7 @@ const features = [
   },
   {
     title: "Predictive Analytics",
-    description: "Forecast engagement, churn risk, and growth outcomes using models trained on your community's history.",
+    description: "Forecast engagement, churn risk, and future growth opportunities.",
     icon: Target,
     code: "PRD-06",
     stat: "2.4×",
@@ -71,7 +71,7 @@ export function Features() {
           index="03"
           label="Capabilities"
           title="Everything you need to lead with clarity"
-          description="Purpose-built analytics for community operators who need depth, not noise."
+          description="Purpose-built intelligence tools for Discord communities and online operators."
           tone="dark"
         />
 

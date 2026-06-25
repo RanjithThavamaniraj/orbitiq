@@ -9,7 +9,7 @@ import { ArrowDown, ArrowRight, Orbit } from "lucide-react";
 
 const inputs = ["Community Activity", "Discord Signals"];
 
-const processing = ["Airflow", "Databricks", "Snowflake"];
+const processing = ["Apache Airflow", "Databricks", "Snowflake"];
 
 const outputs = [
   "Community Health",
@@ -174,7 +174,7 @@ export function TechStack() {
           index="06"
           label="Intelligence Layer"
           title="Community signals in. Actionable intelligence out."
-          description="OrbitIQ sits at the center of your stack — absorbing community activity and delivering the insights operators act on."
+          description="OrbitIQ sits between raw community activity and operator decisions."
         />
 
         <FadeIn delay={0.12}>
@@ -213,7 +213,7 @@ export function TechStack() {
           </div>
 
           <p className="mt-6 text-center font-mono text-[10px] tracking-[0.25em] text-muted">
-            RAW ACTIVITY → INTELLIGENCE ENGINE → OPERATOR INSIGHTS
+            RAW ACTIVITY → INTELLIGENCE ENGINE → OPERATOR DECISIONS
           </p>
         </FadeIn>
       </div>

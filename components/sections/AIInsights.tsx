@@ -13,7 +13,7 @@ const insights = [
     type: "Opportunity",
     icon: TrendingUp,
     title: "Peak engagement window identified",
-    body: "Tuesday and Thursday evenings between 7–9 PM EST show 3.1× higher message volume. Consider scheduling AMAs during this window.",
+    body: "Tuesday and Thursday evenings show 3.1x higher activity than average. Consider scheduling community events during these periods.",
     confidence: 94,
     time: "2m ago",
     id: "SIG-2847",
@@ -21,8 +21,8 @@ const insights = [
   {
     type: "Alert",
     icon: AlertTriangle,
-    title: "Retention dip in week-2 cohort",
-    body: "Members who joined in the last 14 days show 23% lower day-14 retention.",
+    title: "Retention dip detected",
+    body: "Members who joined in the last 14 days are returning 22% less frequently than previous cohorts.",
     confidence: 89,
     time: "14m ago",
     id: "SIG-2841",
@@ -30,8 +30,8 @@ const insights = [
   {
     type: "Recommendation",
     icon: Lightbulb,
-    title: "Channel consolidation opportunity",
-    body: "Channels #help, #support, and #questions overlap by 67% in active users.",
+    title: "Newcomer onboarding recommended",
+    body: "Create a newcomer onboarding channel and automated welcome sequence.",
     confidence: 91,
     time: "1h ago",
     id: "SIG-2835",
@@ -39,8 +39,8 @@ const insights = [
   {
     type: "Trend",
     icon: Sparkles,
-    title: "Voice activity driving retention",
-    body: "Voice session members retain at 2.4× the rate of text-only members.",
+    title: "Voice participation correlates with member retention",
+    body: "Communities with weekly voice sessions retain members 2.4x longer.",
     confidence: 96,
     time: "3h ago",
     id: "SIG-2829",
@@ -111,7 +111,7 @@ export function AIInsights() {
           index="05"
           label="AI Insights"
           title="Intelligence that explains itself"
-          description="Patterns across millions of data points, distilled into narratives you can act on."
+          description="OrbitIQ doesn't just show metrics. It explains why they changed and what to do next."
           tone="dark"
         />
 

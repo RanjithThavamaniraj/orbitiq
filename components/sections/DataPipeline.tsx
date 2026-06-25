@@ -8,35 +8,35 @@ import { motion } from "framer-motion";
 const pipelineSteps = [
   {
     name: "Discord",
-    description: "Real-time community events, messages, and member activity",
+    description: "Real-time events, messages, reactions, voice activity, and member behavior.",
     x: 80,
     y: 200,
     tag: "IN-01",
   },
   {
-    name: "Airflow",
-    description: "Orchestrated ingestion with retry logic and monitoring",
+    name: "Apache Airflow",
+    description: "Workflow orchestration, ingestion scheduling, retries, monitoring.",
     x: 280,
     y: 120,
     tag: "ORC-02",
   },
   {
     name: "Databricks",
-    description: "Distributed processing and feature engineering at scale",
+    description: "Distributed processing, feature engineering, behavioral analytics.",
     x: 520,
     y: 200,
     tag: "PRC-03",
   },
   {
     name: "Snowflake",
-    description: "Unified data warehouse for analytics-ready datasets",
+    description: "Analytics-ready warehouse optimized for reporting and AI workloads.",
     x: 720,
     y: 120,
     tag: "STG-04",
   },
   {
     name: "OrbitIQ",
-    description: "AI-powered insights delivered to your dashboard",
+    description: "Transforms raw activity into actionable intelligence and operator insights.",
     x: 920,
     y: 200,
     tag: "OUT-05",
@@ -56,8 +56,8 @@ export function DataPipeline() {
         <SectionHeader
           index="01"
           label="Data Pipeline"
-          title="From raw activity to intelligence"
-          description="Every community signal flows through a reliable pipeline — designed for scale, clarity, and sub-second insight delivery."
+          title="From community activity to intelligence"
+          description="Every message, reaction, voice session, and member action flows through a reliable analytics pipeline built for community operators."
         />
 
         <FadeIn delay={0.15}>

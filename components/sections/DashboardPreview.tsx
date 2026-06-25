@@ -8,8 +8,8 @@ import { motion } from "framer-motion";
 
 const kpis = [
   { label: "Active Members", value: "12.8K", change: "+18.3%" },
-  { label: "Engagement", value: "34.6%", change: "+2.1%" },
-  { label: "Health Score", value: "87", change: "+4.2%" },
+  { label: "Engagement Rate", value: "34.6%", change: "+2.1%" },
+  { label: "Community Health", value: "87", change: "+4.2%" },
 ];
 
 const barHeights = [42, 68, 55, 82, 64, 90, 72, 88];
@@ -30,9 +30,9 @@ const aiInsights = [
 ];
 
 const feedItems = [
-  { label: "Message Velocity", value: "4.2K/hr", trend: "+8%" },
-  { label: "Voice Sessions", value: "186", trend: "+31%" },
-  { label: "New Members", value: "247", trend: "+14%" },
+  { label: "Weekly Activity", value: "4.2M Events", trend: "+12%" },
+  { label: "Growth Trend", value: "+94%", trend: "12 wk" },
+  { label: "Retention", value: "82%", trend: "+3.1%" },
 ];
 
 function OrbitRadar() {
@@ -105,7 +105,7 @@ export function DashboardPreview() {
           index="02"
           label="Dashboard"
           title="Intelligence at a glance"
-          description="A calm command center for community operators — health, growth, and AI recommendations in one refined view."
+          description="A single command center for understanding community health, engagement, growth, and retention."
           tone="dark"
         />
 

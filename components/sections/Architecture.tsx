@@ -6,13 +6,13 @@ import { HudPanel } from "@/components/ui/HudPanel";
 import { motion } from "framer-motion";
 
 const architectureLayers = [
-  { name: "Community Signals", description: "Discord events, member activity, and engagement patterns", tag: "IN", offset: "lg:ml-0" },
-  { name: "Apache Airflow", description: "DAG orchestration, scheduling, and reliable ingestion", tag: "ORC", offset: "lg:ml-[5%]" },
-  { name: "Databricks", description: "Distributed processing, feature engineering, and ML pipelines", tag: "PRC", offset: "lg:ml-[10%]" },
-  { name: "Snowflake", description: "Unified warehouse for analytics-ready community datasets", tag: "STG", offset: "lg:ml-[15%]" },
+  { name: "Community Signals", description: "Discord events, conversations, reactions, member activity.", tag: "IN", offset: "lg:ml-0" },
+  { name: "Apache Airflow", description: "Reliable orchestration and ingestion.", tag: "ORC", offset: "lg:ml-[5%]" },
+  { name: "Databricks", description: "Behavioral processing and feature engineering.", tag: "PRC", offset: "lg:ml-[10%]" },
+  { name: "Snowflake", description: "Analytics-ready community warehouse.", tag: "STG", offset: "lg:ml-[15%]" },
   {
     name: "OrbitIQ Intelligence Engine",
-    description: "Transforms raw signals into health scores, growth trends, and AI recommendations",
+    description: "Central intelligence layer producing recommendations and insights.",
     tag: "CORE",
     offset: "lg:ml-[20%]",
     terminal: true,
@@ -28,8 +28,8 @@ export function Architecture() {
         <SectionHeader
           index="04"
           label="Architecture"
-          title="Signals in, intelligence out"
-          description="A reliable path from community activity to operator insight — with OrbitIQ as the intelligence layer your team acts on."
+          title="Signals in. Intelligence out."
+          description="A scalable analytics architecture designed to convert community activity into operational insight."
         />
 
         <FadeIn delay={0.15}>
