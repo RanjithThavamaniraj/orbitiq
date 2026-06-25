@@ -26,7 +26,7 @@ export function HudPanel({
   return (
     <motion.div
       className={cn(
-        "relative overflow-hidden rounded-lg p-6 lg:p-7",
+        "relative overflow-hidden rounded-lg p-5 lg:p-6",
         isDark ? "hud-panel-dark text-[#FFFBF0]" : "hud-panel-light text-text",
         hover && "transition-all duration-400 hover:shadow-[var(--hud-glow)]",
         className
@@ -42,14 +42,26 @@ export function HudPanel({
       <div className="pointer-events-none absolute inset-0 hud-grid opacity-40" />
 
       {(label || id) && (
-        <div className="relative mb-4 flex items-center justify-between gap-3">
+        <div className="relative mb-3 flex items-center justify-between gap-3">
           {label && (
-            <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-gold/80">
+            <span
+              className={cn(
+                "font-mono text-[9px] uppercase tracking-[0.22em]",
+                isDark ? "text-gold/80" : "text-burgundy/65"
+              )}
+            >
               {label}
             </span>
           )}
           {id && (
-            <span className="font-mono text-[9px] text-white/40">{id}</span>
+            <span
+              className={cn(
+                "font-mono text-[9px]",
+                isDark ? "text-white/55" : "text-muted"
+              )}
+            >
+              {id}
+            </span>
           )}
         </div>
       )}

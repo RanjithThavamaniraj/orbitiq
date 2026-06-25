@@ -45,7 +45,7 @@ function StatContent({ value, label }: { value: string; label: string }) {
       </p>
       <p
         className="mt-1 text-[9px] uppercase tracking-[0.18em]"
-        style={{ color: BRUTAL, opacity: 0.4 }}
+        style={{ color: BRUTAL, opacity: 0.55 }}
       >
         {label}
       </p>
@@ -156,9 +156,9 @@ export function HeroBrutalistScore() {
 
         <motion.p
           className="mt-2 text-[10px] uppercase tracking-[0.2em]"
-          style={{ color: BRUTAL, opacity: 0.4 }}
+          style={{ color: BRUTAL, opacity: 0.55 }}
           initial={{ opacity: 0 }}
-          animate={{ opacity: done ? 0.4 : 0 }}
+          animate={{ opacity: done ? 0.55 : 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           Community Health Score

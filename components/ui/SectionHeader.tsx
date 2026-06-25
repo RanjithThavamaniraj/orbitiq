@@ -8,6 +8,7 @@ interface SectionHeaderProps {
   index?: string;
   className?: string;
   align?: "left" | "center";
+  tone?: "light" | "dark";
 }
 
 export function SectionHeader({
@@ -17,19 +18,27 @@ export function SectionHeader({
   index,
   className,
   align = "left",
+  tone = "light",
 }: SectionHeaderProps) {
+  const isDark = tone === "dark";
+
   return (
-    <FadeIn className={cn("mb-16 lg:mb-20", align === "center" && "text-center", className)}>
+    <FadeIn className={cn("mb-7 lg:mb-9", align === "center" && "text-center", className)}>
       <div
         className={cn(
-          "flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between",
+          "flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-6",
           align === "center" && "lg:flex-col lg:items-center"
         )}
       >
         <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
-          <div className="mb-5 flex items-center gap-4">
+          <div className="mb-3 flex items-center gap-3">
             {index && (
-              <span className="font-mono text-[11px] tracking-widest text-burgundy/40">
+              <span
+                className={cn(
+                  "font-mono text-[11px] tracking-widest",
+                  isDark ? "text-white/45" : "text-burgundy/60"
+                )}
+              >
                 SYS.{index}
               </span>
             )}
@@ -37,24 +46,42 @@ export function SectionHeader({
               {label}
             </span>
           </div>
-          <h2 className="font-display text-[2.25rem] leading-[1.1] text-burgundy-deep sm:text-4xl lg:text-[2.875rem]">
+          <h2
+            className={cn(
+              "font-display text-[2rem] leading-[1.12] sm:text-[2.25rem] lg:text-[2.5rem]",
+              isDark ? "text-white" : "text-burgundy-deep"
+            )}
+          >
             {title}
           </h2>
         </div>
         {description && (
           <p
             className={cn(
-              "max-w-md text-[15px] leading-relaxed text-muted lg:pb-1",
-              align === "center" && "mx-auto"
+              "max-w-md shrink-0 text-[14px] leading-relaxed lg:max-w-sm lg:pb-0.5 lg:text-[15px]",
+              align === "center" && "mx-auto",
+              isDark ? "text-white/55" : "text-muted"
             )}
           >
             {description}
           </p>
         )}
       </div>
-      <div className="relative mt-10 flex items-center gap-3">
-        <span className="h-px flex-1 bg-gradient-to-r from-gold/50 via-burgundy/20 to-transparent" />
-        <span className="font-mono text-[8px] tracking-[0.3em] text-burgundy/30">◆</span>
+      <div className="relative mt-4 flex items-center gap-3">
+        <span
+          className={cn(
+            "h-px flex-1 bg-gradient-to-r from-gold/50 to-transparent",
+            !isDark && "via-burgundy/20"
+          )}
+        />
+        <span
+          className={cn(
+            "font-mono text-[8px] tracking-[0.3em]",
+            isDark ? "text-gold/50" : "text-burgundy/50"
+          )}
+        >
+          ◆
+        </span>
       </div>
     </FadeIn>
   );

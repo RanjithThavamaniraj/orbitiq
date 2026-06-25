@@ -1,10 +1,6 @@
 import { Orbit } from "lucide-react";
 
 const footerLinks = [
-  { label: "Platform", href: "#dashboard" },
-  { label: "Pipeline", href: "#pipeline" },
-  { label: "Features", href: "#features" },
-  { label: "Architecture", href: "#architecture" },
   { label: "Privacy", href: "#" },
   { label: "Terms", href: "#" },
 ];
@@ -12,8 +8,8 @@ const footerLinks = [
 export function Footer() {
   return (
     <footer className="bg-burgundy text-white">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-        <div className="flex flex-col gap-14 lg:flex-row lg:items-start lg:justify-between">
+      <div className="page-container py-9 lg:py-10">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
             <a href="#" className="inline-flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
@@ -21,12 +17,12 @@ export function Footer() {
               </div>
               <span className="font-display text-xl">OrbitIQ</span>
             </a>
-            <p className="mt-6 text-[15px] leading-relaxed text-white/75">
+            <p className="mt-3 text-[14px] leading-relaxed text-white/75">
               Community intelligence for operators who care about people, not just metrics.
             </p>
           </div>
 
-          <nav className="flex flex-wrap gap-x-8 gap-y-4">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 sm:pt-1">
             {footerLinks.map((link) => (
               <a
                 key={link.label}
@@ -39,7 +35,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-white/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-7 flex flex-col gap-2 border-t border-white/15 pt-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[12px] text-white/50">
             © {new Date().getFullYear()} OrbitIQ. All rights reserved.
           </p>

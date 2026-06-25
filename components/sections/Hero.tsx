@@ -1,84 +1,90 @@
 "use client";
 
 import { FadeIn } from "@/components/ui/FadeIn";
-import { Button } from "@/components/ui/Button";
-import { HeroBrutalistScore } from "@/components/visuals/HeroBrutalistScore";
+import { HeroOrbitArtwork } from "@/components/visuals/HeroOrbitArtwork";
+import { HeroOrbitEnvironment } from "@/components/visuals/HeroOrbitEnvironment";
+import { HeroMegaType } from "@/components/visuals/HeroMegaType";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+
+const narrative = [
+  { label: "Community chaos" },
+  { label: "OrbitIQ core" },
+  { label: "Intelligence" },
+];
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-[4.5rem]">
       <div className="absolute inset-0 paper-texture" />
-      <div className="pointer-events-none absolute -right-32 top-20 h-[480px] w-[480px] rounded-full bg-surface/90 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-16 lg:px-10 lg:pb-32 lg:pt-24">
-        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-12 xl:gap-20">
-          <div className="max-w-xl lg:max-w-none">
-            <FadeIn delay={0.05}>
-              <p className="mb-8 text-[11px] font-medium uppercase tracking-[0.24em] text-burgundy">
-                Community Intelligence
-              </p>
-            </FadeIn>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 55% at 78% 45%, rgba(255,251,240,0.85) 0%, rgba(255,250,205,0.35) 55%, transparent 85%)",
+        }}
+      />
 
-            <FadeIn delay={0.12}>
-              <h1 className="font-display text-[2.75rem] leading-[1.08] text-burgundy-deep sm:text-5xl lg:text-[3.75rem] xl:text-[4.125rem]">
-                Understand your community{" "}
-                <em className="not-italic text-burgundy">beyond the numbers</em>
-              </h1>
-            </FadeIn>
+      <div className="page-container relative py-6 sm:py-8 lg:py-9">
+        <div className="relative grid items-center gap-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0">
+          <FadeIn delay={0.06} className="relative z-30 lg:col-span-5 lg:row-start-1">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.28em] text-burgundy">
+              OrbitIQ · Community Intelligence
+            </p>
 
-            <FadeIn delay={0.22}>
-              <p className="mt-8 max-w-md text-[17px] leading-[1.7] text-text">
-                OrbitIQ transforms Discord activity into clear, actionable intelligence —
-                through enterprise pipelines and thoughtful AI that speaks human.
-              </p>
-            </FadeIn>
+            <h1 className="font-display text-[2.25rem] leading-[1.05] text-burgundy-deep sm:text-[2.5rem] lg:text-[2.875rem] xl:text-[3rem]">
+              Chaos in.
+              <br />
+              <em className="not-italic text-burgundy">Intelligence out.</em>
+            </h1>
+          </FadeIn>
 
-            <FadeIn delay={0.32}>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
-                <Button href="#dashboard">
-                  Explore Platform
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button href="#architecture" variant="secondary">
-                  View Architecture
-                </Button>
+          <FadeIn
+            delay={0.14}
+            className="relative z-20 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1"
+          >
+            <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:ml-auto lg:w-[92%] lg:max-w-[36rem]">
+              <div className="relative aspect-[5/4] w-full min-h-[260px] sm:min-h-[300px] lg:min-h-[min(40vh,380px)] xl:min-h-[min(44vh,420px)]">
+                <HeroOrbitEnvironment className="inset-0" />
+                <div className="absolute inset-0">
+                  <HeroOrbitArtwork />
+                </div>
               </div>
-            </FadeIn>
+            </div>
+          </FadeIn>
 
-            <FadeIn delay={0.42}>
-              <div className="mt-16 flex gap-12 border-t border-burgundy/10 pt-10">
-                {[
-                  { value: "2.4M+", label: "Signals daily" },
-                  { value: "99.9%", label: "Reliability" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <p className="font-display text-3xl text-burgundy-deep">{stat.value}</p>
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-label">
-                      {stat.label}
-                    </p>
+          <FadeIn delay={0.1} className="relative z-30 lg:col-span-5 lg:row-start-2">
+            <div className="mt-1 lg:mt-2">
+              <div className="mb-4 space-y-0.5">
+                {narrative.map((step, i) => (
+                  <div key={step.label}>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-label">{step.label}</p>
+                    {i < narrative.length - 1 && (
+                      <p className="my-1 font-mono text-[9px] text-burgundy/35">↓</p>
+                    )}
                   </div>
                 ))}
               </div>
-            </FadeIn>
-          </div>
 
-          <FadeIn delay={0.25} className="relative lg:pl-4">
-            <HeroBrutalistScore />
+              <p className="mb-4 text-[13px] leading-relaxed text-muted sm:text-[14px]">
+                Turning community activity into intelligence
+              </p>
+
+              <a href="#dashboard" className="editorial-cta group">
+                <span className="editorial-cta-line">Explore the transformation</span>
+                <ArrowRight className="editorial-cta-arrow h-3.5 w-3.5 text-burgundy" strokeWidth={1.5} />
+              </a>
+            </div>
           </FadeIn>
         </div>
-      </div>
 
-      <div className="pointer-events-none absolute bottom-10 left-1/2 -translate-x-1/2">
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
+        <div
+          className="pointer-events-none absolute right-0 bottom-[10%] z-[5] hidden w-[48%] overflow-hidden lg:block"
+          aria-hidden
         >
-          <span className="text-[10px] uppercase tracking-[0.2em] text-label">Discover</span>
-          <div className="h-10 w-px bg-gradient-to-b from-burgundy/25 to-transparent" />
-        </motion.div>
+          <HeroMegaType variant="atmospheric" />
+        </div>
+
       </div>
     </section>
   );

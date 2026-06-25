@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
 import { Orbit } from "lucide-react";
 
 const navLinks = [
@@ -33,7 +32,7 @@ export function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-6 lg:px-10">
+      <nav className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between px-6 lg:px-10">
         <a href="#" className="group flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-burgundy transition-colors group-hover:bg-burgundy-deep">
             <Orbit className="h-4 w-4 text-white" strokeWidth={2} />
@@ -41,7 +40,7 @@ export function Navbar() {
           <span className="font-display text-lg text-burgundy-deep">OrbitIQ</span>
         </a>
 
-        <div className="hidden items-center gap-10 md:flex">
+        <div className="hidden flex-1 items-center justify-end gap-8 md:flex lg:gap-10">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -51,15 +50,6 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Button href="#architecture" variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Docs
-          </Button>
-          <Button href="#dashboard" variant="primary" size="sm">
-            Get Started
-          </Button>
         </div>
       </nav>
     </motion.header>

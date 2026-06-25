@@ -52,7 +52,7 @@ export function DataPipeline() {
     <section id="pipeline" className="section-pad relative overflow-hidden">
       <div className="absolute inset-0 sci-fi-bg opacity-50" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div className="page-container relative">
         <SectionHeader
           index="01"
           label="Data Pipeline"
@@ -62,8 +62,8 @@ export function DataPipeline() {
 
         <FadeIn delay={0.15}>
           <div className="relative hidden lg:block">
-            <HudPanel label="PIPELINE MAP" id="SYS-PIPE-01" className="!p-8 lg:!p-10">
-              <svg viewBox="0 0 1000 340" className="w-full" aria-hidden preserveAspectRatio="xMidYMid meet">
+            <HudPanel label="PIPELINE MAP" id="SYS-PIPE-01" className="!p-5 lg:!p-6">
+              <svg viewBox="0 0 1000 300" className="w-full" aria-hidden preserveAspectRatio="xMidYMid meet">
                 <defs>
                   <linearGradient id="pipelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.6" />
@@ -123,7 +123,7 @@ export function DataPipeline() {
                       x={step.x}
                       y={step.y + 28}
                       textAnchor="middle"
-                      fill="rgba(255,251,240,0.4)"
+                      fill="rgba(255,251,240,0.55)"
                       fontSize="8"
                       fontFamily="var(--font-dm-mono)"
                     >
@@ -133,9 +133,9 @@ export function DataPipeline() {
                 ))}
               </svg>
 
-              <div className="mt-6 flex justify-between gap-3">
+              <div className="mt-4 grid grid-cols-5 gap-2">
                 {pipelineSteps.map((step) => (
-                  <p key={step.name} className="max-w-[150px] text-center text-[11px] leading-relaxed text-white/45">
+                  <p key={step.name} className="text-center text-[10px] leading-snug text-white/60 lg:text-[11px]">
                     {step.description}
                   </p>
                 ))}
@@ -144,12 +144,12 @@ export function DataPipeline() {
           </div>
         </FadeIn>
 
-        <div className="flex gap-4 overflow-x-auto pb-4 lg:hidden snap-x snap-mandatory">
+        <div className="mt-4 flex gap-3 overflow-x-auto pb-1 lg:hidden snap-x snap-mandatory">
           {pipelineSteps.map((step, i) => (
             <FadeIn key={step.name} delay={i * 0.08} className="min-w-[260px] snap-center">
               <HudPanel label={step.tag} id={`STG-0${i + 1}`} className="h-full">
                 <h3 className="font-display text-lg text-white">{step.name}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-white/55">{step.description}</p>
+                <p className="mt-2 text-[13px] leading-relaxed text-white/65">{step.description}</p>
               </HudPanel>
             </FadeIn>
           ))}
